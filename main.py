@@ -1,22 +1,54 @@
-print("Welcome to Expense Tracker")
+def add_expense():
+        name = input("Enter expense name: ")
+            amount = input("Enter amount (Ksh): ")
+                with open("expenses.txt", "a") as file:
+                        file.write(f"{name} Ksh {amount}\n")
+                            print("✅ Expense saved!\n")
 
-expense_name = input("Enter expense name: ")
-expense_amount =float(input("Enter amount (Ksh): "))
+                            def view_expenses():
+                                try:
+                                        with open("expenses.txt", "r") as file:
+                                                    lines = file.readlines()
+                                                                if lines:
+                                                                                print("\n📋 Saved Expenses:")
+                                                                                                for line in lines:
+                                                                                                                    print("•", line.strip())
+                                                                                                                                else:
+                                                                                                                                                print("📭 No expenses recorded.")
+                                                                                                                                                    except FileNotFoundError:
+                                                                                                                                                            print("🚫 No expenses file found.")
 
-with open("expenses.txt", "a") as file:
-    file.write(f"{expense_name}: Ksh {expense_amount}\n")
+                                                                                                                                                            def search_expense():
+                                                                                                                                                                keyword = input("🔍 Enter keyword to search: ").lower()
+                                                                                                                                                                    try:
+                                                                                                                                                                            with open("expenses.txt", "r") as file:
+                                                                                                                                                                                        matches = [line.strip() for line in file if keyword in line.lower()]
+                                                                                                                                                                                                    if matches:
+                                                                                                                                                                                                                    print("\n🔎 Matching Expenses:")
+                                                                                                                                                                                                                                    for match in matches:
+                                                                                                                                                                                                                                                        print("•", match)
+                                                                                                                                                                                                                                                                    else:
+                                                                                                                                                                                                                                                                                    print("❌ No matching expenses found.")
+                                                                                                                                                                                                                                                                                        except FileNotFoundError:
+                                                                                                                                                                                                                                                                                                print("🚫 No expenses file found.")
 
-    print("Expense saved!")
+                                                                                                                                                                                                                                                                                                # Menu
+                                                                                                                                                                                                                                                                                                while True:
+                                                                                                                                                                                                                                                                                                    print("\n=== Expense Tracker Menu ===")
+                                                                                                                                                                                                                                                                                                        print("1. Add Expense")
+                                                                                                                                                                                                                                                                                                            print("2. View Expenses")
+                                                                                                                                                                                                                                                                                                                print("3. Search Expense")
+                                                                                                                                                                                                                                                                                                                    print("4. Exit")
+                                                                                                                                                                                                                                                                                                                        choice = input("Choose an option (1-4): ")
 
-def view_expenses():
-        try:
-                with open("expenses.txt", "r") as file:
-                            expenses = file.readlines()
-                                        if not expenses:
-                                                        print("No expenses found.")
-                                                                    else:
-                                                                                    print("Your saved expenses:")
-                                                                                                    for line in expenses:
-                                                                                                                        print(line.strip())
-                                                                                                                            except FileNotFoundError:
-                                                                                                                                    print("No expenses found. You haven't added any yet.")
+                                                                                                                                                                                                                                                                                                                            if choice == "1":
+                                                                                                                                                                                                                                                                                                                                    add_expense()
+                                                                                                                                                                                                                                                                                                                                        elif choice == "2":
+                                                                                                                                                                                                                                                                                                                                                view_expenses()
+                                                                                                                                                                                                                                                                                                                                                    elif choice == "3":
+                                                                                                                                                                                                                                                                                                                                                            search_expense()
+                                                                                                                                                                                                                                                                                                                                                                elif choice == "4":
+                                                                                                                                                                                                                                                                                                                                                                        print("👋 Goodbye!")
+                                                                                                                                                                                                                                                                                                                                                                                break
+                                                                                                                                                                                                                                                                                                                                                                                    else:
+                                                                                                                                                                                                                                                                                                                                                                                            print("❗ Invalid choice. Please select 1-4.")
