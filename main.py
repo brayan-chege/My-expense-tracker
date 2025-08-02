@@ -52,3 +52,24 @@ def add_expense():
                                                                                                                                                                                                                                                                                                                                                                                 break
                                                                                                                                                                                                                                                                                                                                                                                     else:
                                                                                                                                                                                                                                                                                                                                                                                             print("❗ Invalid choice. Please select 1-4.")
+
+print("\n--- Expense Summary ---")
+
+try:
+    with open("expenses.txt", "r") as file:
+            total = 0
+                    count = 0
+                            for line in file:
+                                        line = line.strip()
+                                                    if "Ksh" in line:
+                                                                    try:
+                                                                                        parts = line.split("Ksh")
+                                                                                                            amount = float(parts[1].strip().replace(",", ""))
+                                                                                                                                total += amount
+                                                                                                                                                    count += 1
+                                                                                                                                                                    except (IndexError, ValueError):
+                                                                                                                                                                                        continue  # skip lines with issues
+                                                                                                                                                                                                print("Total Expenses: Ksh", total)
+                                                                                                                                                                                                        print("Number of Expenses:", count)
+                                                                                                                                                                                                        except FileNotFoundError:
+                                                                                                                                                                                                            print("No expenses found.")
